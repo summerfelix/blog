@@ -1,0 +1,64 @@
+{% extends 'web/base_main.html' %}
+
+{% block content %}
+<article>
+  <div class="picbox">
+      {% for art in page %}
+        <ul>
+
+        <li data-scroll-reveal="enter bottom over 1s" >
+            <a href="{% url 'web:info' art.id %}"><i><img src="/media/{{ art.icon }}"></i>
+                <div class="picinfo">
+                    <h3>{{ art.title }}</h3>
+                    <span>{{ art.desc }}</span>
+                </div>
+            </a>
+        </li>
+
+        </ul>
+        {% endfor %}
+
+  </div>
+  <div class="pagelist">
+
+      <a class="allpage"><b>{{ page.paginator.num_pages }}</b></a>
+
+    {% if page.has_previous %}
+        <a href="{% url 'web:album' %}?page={{ page.previous_page_number }}">上一页</a>
+    {% else %}
+        <a href="#">上一页</a>
+    {% endif %}
+
+      {% for i in page.paginator.page_range %}
+        <a href="{% url 'web:album' %}?page={{ i }}" class="curPage">{{ i }}</a>&nbsp;&nbsp;
+      {% endfor %}
+
+{#      #}
+{#      <a href="#" class="curPage">1</a>&nbsp;&nbsp;#}
+{#      <a href="#" onclick="page(2)">2</a>&nbsp;&nbsp;#}
+{#      <a href="#" onclick="page(3)">3</a>&nbsp;&nbsp;#}
+{#      <a href="#" onclick="page(4)">4</a>&nbsp;&nbsp;#}
+{#      <a href="#" onclick="page(5)">5</a>&nbsp;&nbsp;#}
+{#      <a href="#" onclick="page(6)">6</a>&nbsp;&nbsp;#}
+{#      <a href="#" onclick="page(7)">7</a>&nbsp;&nbsp;#}
+{#      <a href="#" onclick="page(8)">8</a>&nbsp;&nbsp;#}
+{#      <a href="#" onclick="page(9)">9</a>&nbsp;&nbsp;#}
+
+    {% if page.has_next %}
+        <a href="{% url 'web:album' %}?page={{ page.next_page_number }}">下一页</a>
+    {% else %}
+        <a href="#">下一页</a>
+    {% endif %}
+
+  </div>
+</article>
+
+<script>
+	if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){
+		(function(){
+			window.scrollReveal = new scrollReveal({reset: true});
+		})();
+	};
+</script>
+
+{% endblock %}

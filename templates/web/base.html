@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>
+    {% block title %}
+    {% endblock %}
+</title>
+{% block meta %}
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+
+
+</head>
+<body>
+
+<header class="header-navigation" id="header">
+  <nav><div class="logo"><a href="{% url 'web:index' %}">个人博客</a></div>
+    <h2 id="mnavh"><span class="navicon"></span></h2>
+    <ul id="starlist">
+      <li><a href="{% url 'web:index' %}">网站首页</a></li>
+      <li><a href="{% url 'web:album' %}">我的相册</a></li>
+      <li><a href="{% url 'web:list' %}">我的日记</a></li>
+      <li><a href="{% url 'web:about' %}">关于我</a></li>
+    </ul>
+</nav>
+</header>
+
+    {% block content %}
+
+    {% endblock %}
+
+
+
+<footer>
+  <p>Design by <a href="http://www.yangqq.com" target="_blank">个人博客</a> <a href="/">蜀ICP备11002373号-1</a></p>
+</footer>
+<a href="#" class="cd-top">Top</a>
+
+</body>
+</html>

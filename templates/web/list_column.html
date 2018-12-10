@@ -1,0 +1,92 @@
+{% extends 'web/index_main.html' %}
+
+{% block main %}
+
+  <main id="main" class="r_box">
+
+    <P style="font-size: 30px; text-align: center"><span>栏目：{{ col.c_name }}&emsp;栏目ID：</span><span id="colid">{{ col.id }}</span></P>
+
+      {% for article in page %}
+          <li><i><a href=""><img src="/media/{{ article.icon }}"></a></i>
+              <h3><a href="{% url 'web:info' article.id %}">{{ article.title }}</a></h3>
+              <p>{{ article.desc }}</p>
+          </li>
+      {% endfor %}
+
+
+
+    </main>
+ <div class="pagelist">
+     <a class="allpage"><b>{{ page.paginator.num_pages }}</b></a>
+
+ {% if page.has_previous %}
+ <a href="{% url 'web:list' %}?page={{ page.previous_page_number }}">上一页</a>
+ {% else %}
+ <a href="#" onclick="page(2)">上一页</a>
+ {% endif %}
+
+     {% for i in page.paginator.page_range %}
+        <a href="{% url 'web:list' %}?page={{ i }}">{{ i }}</a>&nbsp;&nbsp;
+     {% endfor %}
+
+  {% if page.has_next %}
+ <a href="{% url 'web:list' %}?page={{ page.next_page_number }}">下一页</a>
+ {% else %}
+ <a href="#" onclick="page(2)">下一页</a>
+ {% endif %}
+
+ </div>
+
+
+    <script>
+     {#<li>#}
+     {#<i>#}
+     {#<a href="">#}
+     {#    <img src="/media/{{ article.icon }}">#}
+     {#        #}
+     {#    </a>#}
+     {#</i>#}
+     {#<h3>#}
+     {#    <a href="{% url 'web:info' article.id %}">{{ article.title }}</a>#}
+     {#</h3>#}
+     {#         <p>{{ article.desc }}</p>#}
+     {#</li>#}
+    var id = $('#colid').text();
+    {#alert(id)#}
+    $(function () {
+        $.ajax({
+            url: '/api/web/article/?column_id=' + id,
+            type: 'get',
+            dataType: 'JSON',
+            success: function (data) {
+                $.each(data.results, function (index, art) {
+                    {#alert(art['title'])#}
+                    var s = '/web/info/' + art['id'] + '/';
+                    $('#main').append(
+                        $('<li>').append(
+                            $('<i>').append(
+                                $('<a>').attr('href', '#').append(
+                                    $('<img>').attr('src', art['icon'])
+                                )
+                            ),
+                            $('<h3>').append(
+                                $('<a>').attr('href', s).text(art['title'])
+                            ),
+                            $('<P>').text(art['desc'])
+                        )
+                    )
+                })
+            },
+            errors: function (data) {
+                alert('失败')
+            }
+        })
+    })
+
+
+
+</script>
+
+
+{% endblock %}
+

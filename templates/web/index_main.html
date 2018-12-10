@@ -1,0 +1,84 @@
+{% extends 'web/base_main.html' %}
+
+{% block content %}
+
+<article>
+  <aside class="l_box">
+      <div class="about_me">
+        <h2>关于我</h2>
+        <ul>
+          <i><img src="/static/web/images/4.jpg"></i>
+          <p><b>ypc</b>，一个95后草根！09年入行。一直潜心研究python技术，一边工作一边积累经验，分享一些个人博客模板，以及心得。</p>
+        </ul>
+      </div>
+{#      <div class="wdxc">#}
+{#        <h2>我的相册</h2>#}
+{#        <ul>#}
+{#          <li><a href="/"><img src="images/7.jpg"></a></li>#}
+{#          <li><a href="/"><img src="images/8.jpg"></a></li>#}
+{#          <li><a href="/"><img src="images/9.jpg"></a></li>#}
+{#          <li><a href="/"><img src="images/10.jpg"></a></li>#}
+{#          <li><a href="/"><img src="images/11.jpg"></a></li>#}
+{#          <li><a href="/"><img src="images/12.jpg"></a></li>#}
+{#        </ul>#}
+{#      </div>#}
+{#      <div class="search">#}
+{#        <form action="/e/search/index.php" method="post" name="searchform" id="searchform">#}
+{#          <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">#}
+{#          <input name="show" value="title" type="hidden">#}
+{#          <input name="tempid" value="1" type="hidden">#}
+{#          <input name="tbname" value="news" type="hidden">#}
+{#          <input name="Submit" class="input_submit" value="搜索" type="submit">#}
+{#        </form>#}
+{#      </div>#}
+      <div class="fenlei">
+        <h2>栏目</h2>
+        <ul>
+            {% for col in column %}
+                <li><a href="{% url 'web:list_column' col.id %}">{{ col.c_name }}</a></li>
+            {% endfor %}
+        </ul>
+      </div>
+      <div class="tuijian">
+        <h2>站长推荐</h2>
+        <ul>
+
+        {% for art in article %}
+            {% if forloop.revcounter <= 5 %}
+                <li><a href="{% url 'web:info' art.id %}">{{ art.title }}</a></li>
+            {% endif %}
+
+
+
+        {% endfor %}
+
+
+
+
+        </ul>
+      </div>
+  <div class="cloud">
+      <h2>标签云</h2>
+      <ul>
+          {% for tag in tags %}
+                <li><a href="">{{ tag }}</a></li>
+          {% endfor %}
+{#        <a href="/">陌上花开</a> <a href="/">校园生活</a> <a href="/">html5</a> <a href="/">SumSung</a> <a href="/">青春</a> <a href="/">温暖</a> <a href="/">阳光</a> <a href="/">三星</a><a href="/">索尼</a> <a href="/">华维荣耀</a> <a href="/">三星</a> <a href="/">索尼</a>#}
+      </ul>
+    </div>
+      <div class="links">
+        <h2>友情链接</h2>
+        <ul>
+          <a href="https://dreamshop.top/">个人博客</a>
+        </ul>
+      </div>
+
+  </aside>
+
+      {% block main %}
+      {% endblock %}
+
+
+</article>
+
+{% endblock %}
